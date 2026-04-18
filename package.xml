@@ -1,25 +1,91 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
-  <name>Motion Control</name>
-  <description>Link a motion controller to a FreeCAD assembly using OPC UA</description>
-  <version>1.0.0</version>
-  <date>2023-01-16</date>
-  <maintainer email="heissgetraenk@gmx.de">heissgetraenk</maintainer>
-  <license file="LICENSE">GPL-3.0-or-later</license>
-  <url type="repository" branch="main">https://github.com/Addon-Shelter/Motion-Control</url>
-  <url type="readme">https://github.com/Addon-Shelter/Motion-Control/blob/Latest/README.md</url>
-  <icon>freecad/Motion_Control/Resources/Icons/Addon.svg</icon>
+<?xml
+    version = '1.0'
+    encoding = 'UTF-8'
+    standalone = 'no'
+?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- SPDX-FileNotice: Part of the Motion Control addon. -->
+<package
+    format = '1'
+    xmlns = 'https://wiki.freecad.org/Package_Metadata'
+>
 
-  <content>
-    <workbench>
-      <classname>Motion_Control</classname>
-      <subdirectory>./</subdirectory>
-      <!-- Python package dependencies-->
-      <depend
+    <!--[ Versions ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <freecadmin>1.1.0</freecadmin>
+    <pythonmin>3.11</pythonmin>
+    <version>1.1.0</version>
+    <date>2026-04-18</date>
+
+    <!--[ Dependencies ]―――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <depend
         version_gte = '1.1.8'
         type = 'python'
-      >asyncua</depend>
-    </workbench>
-  </content>
+    >asyncua</depend>
+
+    <!--[ Info ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <description>Link motion controller to an assembly using OPC UA.</description>
+    <name>Motion Control</name>
+
+    <!--[ Tags ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <tag>Assembly</tag>
+    <tag>OPC</tag>
+
+    <!--[ Maintainers ]――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <maintainer
+        email = 'PhoneDroid.FGL@proton.me'
+    >PhoneDroid</maintainer>
+
+    <!--[ Authors ]――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <author
+        email = 'heissgetraenk@gmx.de'
+    >heissgetraenk</author>
+
+    <author
+        email = 'PhoneDroid.FGL@proton.me'
+    >PhoneDroid</author>
+
+    <!--[ Licenses ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <license
+        file = 'LICENSE'
+    >GPL-3.0-or-later</license>
+
+    <!--[ Icon ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <icon>freecad/Motion_Control/Resources/Icons/Addon.svg</icon>
+
+    <!--[ Urls ]―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <url
+        type = 'documentation'
+    >https://github.com/Addon-Shelter/Motion-Control/tree/Latest/README.md</url>
+
+    <url
+        branch = 'Latest'
+        type = 'repository'
+    >https://github.com/Addon-Shelter/Motion-Control</url>
+
+    <url
+        type = 'bugtracker'
+    >https://github.com/Addon-Shelter/Motion-Control/issues</url>
+
+    <url
+        type = 'readme'
+    >https://raw.githubusercontent.com/Addon-Shelter/Motion-Control/refs/heads/Latest/README.md</url>
+
+    <!--[ Content ]――――――――――――――――――――――――――――――――――――――――――――――――――――――――――-->
+
+    <content>
+        <workbench>
+            <subdirectory>.</subdirectory>
+            <classname>Motion_Control</classname>
+        </workbench>
+    </content>
 
 </package>
