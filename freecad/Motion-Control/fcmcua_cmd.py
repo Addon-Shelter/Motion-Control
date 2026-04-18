@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 import FreeCAD
 import FreeCADGui
 import os
@@ -77,7 +77,7 @@ class FcmcuaPanel:
         layout.addWidget(self.compTimeLabel, 3, 0, 1, 5)
 
         self.stateLabel = QtWidgets.QLabel("Server: Disconnected")
-        self.stateLabel.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+        self.stateLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignVCenter)
 
         # row 3, column 7, rowspan 1, colspan 3
         layout.addWidget(self.stateLabel, 3, 7, 1, 3)
