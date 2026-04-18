@@ -7,13 +7,13 @@ from os import path
 
 from freecad.Motion_Control import ICONPATH, AXES, ACTUATORS
 
-from .actuator_widgets import ActuatorWidgets
-from .fcmcua_settings import Settings
-from .axis_widgets import AxisWidgets
-from .opc_client import OpcClient
+from ..Actuator.Widgets import ActuatorWidgets
+from ..Axis.Widgets import AxisWidgets
+from ..OPC.Client import OpcClient
+from ..Settings import Settings
 
 
-class FcmcuaPanel:
+class Panel:
     def __init__(self,widget, axCount, actCount):
         #number of axes
         self.axes = axCount
@@ -109,7 +109,7 @@ class FcmcuaPanel:
         except Exception as e:
             self.stateLabel.setText("Server: Error")
             self.compTimeLabel.setText("Compute time: -- ms")
-            print("[Fcmcua] Error while connecting:", e)
+            print("[Motion Control] Error while connecting:", e)
 
 
 
@@ -122,7 +122,7 @@ class FcmcuaPanel:
         except Exception as e:
             self.stateLabel.setText("Server: Error")
             self.compTimeLabel.setText("Compute time: -- ms")
-            print("[Fcmcua] Error while disconnecting:", e)
+            print("[Motion Control] Error while disconnecting:", e)
 
        
     def accept(self):
@@ -141,19 +141,19 @@ class _LinkToOpcUa:
     def Activated(self):
         #create and show the panel
         baseWidget = QtWidgets.QWidget()
-        panel = FcmcuaPanel(baseWidget, AXES, ACTUATORS)
+        panel = Panel(baseWidget, AXES, ACTUATORS)
         Gui.Control.showDialog(panel)
 
     def GetResources(self):
         # icon and command information
         MenuText = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_LinkToOpcUa',
+            'Motion_Control_LinkToOpcUa',
             'Connection settings dialog')
         ToolTip = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_LinkToOpcUa',
+            'Motion_Control_LinkToOpcUa',
             'Set the server address and connect to the OPC UA Server')
         return {
-            'Pixmap': path.join(ICONPATH, "fcmcua_wb.svg"),
+            'Pixmap': path.join(ICONPATH,'Addon.svg'),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
@@ -162,4 +162,4 @@ class _LinkToOpcUa:
         return not activeDocument is None
 
 
-Gui.addCommand('FCMC_LinkToOpcUa', _LinkToOpcUa())
+Gui.addCommand('Motion_Control_LinkToOpcUa', _LinkToOpcUa())

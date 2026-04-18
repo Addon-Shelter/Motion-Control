@@ -6,10 +6,10 @@ from os import path
 
 from .version import __version__
 
-ICONPATH = path.join(path.dirname(__file__), "resources")
+ICONPATH = path.join(path.dirname(__file__),'Resources','Icons')
 
 # read number of axes, actuators from file
-with open(path.join(path.dirname(__file__), "fcmcua.ini")) as settings:
+with open(path.join(path.dirname(__file__), ".ini")) as settings:
     strng = settings.read()
     __axes__ = __actuators__ = 0
     for s in strng.split():

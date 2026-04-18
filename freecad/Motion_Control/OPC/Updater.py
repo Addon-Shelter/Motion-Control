@@ -77,7 +77,7 @@ class CadUpdater():
                 rot_y = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.y, _RND_PARAM)
                 rot_z = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.z, _RND_PARAM)
             except Exception as e:
-                print("[Fcmcua] Error while getting values from the freecad document", e)
+                print("[Motion Control] Error while getting values from the freecad document", e)
 
             return {'old_X':old_X, 'old_Y':old_Y, 'old_Z':old_Z, 'old_angle':old_angle,
                     'rot_x':rot_x, 'rot_y':rot_y, 'rot_z':rot_z}
@@ -145,7 +145,7 @@ class CadUpdater():
                 getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = Placement(Vector(x,y,z),Rotation(Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), angle))
 
         except Exception as e:
-            print("[Fcmcua] Error while setting values in the freecad document", e)
+            print("[Motion Control] Error while setting values in the freecad document", e)
 
    
     def _updateActuator(self, obj, itr):
@@ -170,7 +170,7 @@ class CadUpdater():
             getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = Placement(Vector(x,y,z),Rotation(Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), prev['old_angle']))
 
         except Exception as e:
-            print("[Fcmcua] Error while setting values in the freecad document", e)
+            print("[Motion Control] Error while setting values in the freecad document", e)
 
     def _recompute(self):
         '''

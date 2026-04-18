@@ -5,8 +5,8 @@ from json import dumps , loads
 from os import path
 
 __dir__ = path.dirname(__file__)
-__axis_params__ = path.join(__dir__, 'axis_params.fcmc')
-__actuator_params__ = path.join(__dir__, 'actuator_params.fcmc')
+__axis_params__ = path.join(__dir__, 'Axis','Parameters.fcmc')
+__actuator_params__ = path.join(__dir__, 'Actuator','Parameters.fcmc')
 __connection_params__ = path.join(__dir__, 'connection_params.fcmc')
 
 class Settings:
@@ -23,7 +23,7 @@ class Settings:
             with open(__connection_params__, 'w') as f:
                 f.write(dumps(params))
         except Exception as e:
-            print("[Fcmcua] Error while saving to file:", e)
+            print("[Motion Control] Error while saving to file:", e)
     
 
     def load_connection_settings(self, addrLEdit, pollSpin, axis_list, actu_list):
@@ -39,13 +39,13 @@ class Settings:
             with open(__connection_params__, 'r') as f:
                 params = loads(f.read())
         except Exception as e:
-            print("[Fcmcua] Error while loading from file:", e)
+            print("[Motion Control] Error while loading from file:", e)
             
         try:
             addrLEdit.setText(params['url'])
             pollSpin.setValue(float(params['poll'].replace(',', '.' )))
         except Exception as e:
-            print("[Fcmcua] Error while applying loaded settings:", e)
+            print("[Motion Control] Error while applying loaded settings:", e)
 
 
     def save_axis_settings(self, axis_list):
@@ -68,7 +68,7 @@ class Settings:
             with open(__axis_params__, 'w') as f:
                 f.write(dumps(params))
         except Exception as e:
-            print("[Fcmcua] Error while saving to file:", e)
+            print("[Motion Control] Error while saving to file:", e)
 
 
     def load_axis_settings(self, axis_list):
@@ -79,7 +79,7 @@ class Settings:
             with open(__axis_params__, 'r') as f:
                 params = loads(f.read())
         except Exception as e:
-            print("[Fcmcua] Error while loading from file:", e)
+            print("[Motion Control] Error while loading from file:", e)
 
         for e in range(len(axis_list)):
             try:
@@ -91,7 +91,7 @@ class Settings:
                 axis_list[e].vector.setCurrentText(params[str(e)]['vector'])
                 axis_list[e].spd_pos.setCurrentText(params[str(e)]['spd_pos'])
             except Exception as e:
-                print("[Fcmcua] Error while applying loaded settings:", e)
+                print("[Motion Control] Error while applying loaded settings:", e)
 
 
     def save_actuator_settings(self, actu_list):
@@ -125,7 +125,7 @@ class Settings:
             with open(__actuator_params__, 'w') as f:
                 f.write(dumps(params))
         except Exception as e:
-            print("[Fcmcua] Error while saving to file:", e)
+            print("[Motion Control] Error while saving to file:", e)
 
 
     def load_actuator_settings(self, actu_list):
@@ -136,7 +136,7 @@ class Settings:
                 with open(__actuator_params__, 'r') as f:
                     params = loads(f.read())
             except Exception as e:
-                print("[Fcmcua] Error while loading from file:", e)
+                print("[Motion Control] Error while loading from file:", e)
 
             for e in range(len(actu_list)):
                 try:
@@ -154,4 +154,4 @@ class Settings:
                     actu_list[e].openTSpin.setValue(float(params[str(e)]['openTime'].replace(',', '.' )))
                     actu_list[e].closeTSpin.setValue(float(params[str(e)]['closeTime'].replace(',', '.' )))
                 except Exception as e:
-                    print("[Fcmcua] Error while applying loaded settings:", e)
+                    print("[Motion Control] Error while applying loaded settings:", e)

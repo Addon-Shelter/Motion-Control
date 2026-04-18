@@ -7,11 +7,11 @@ from os import path
 
 from freecad.Motion_Control import ICONPATH, AXES
 
-from .fcmcua_settings import Settings
-from .axis_widgets import AxisWidgets
+from ..Axis.Widgets import AxisWidgets
+from ..Settings import Settings
 
 __dir__ = path.dirname(__file__)
-__axis_params__ = path.join(__dir__, 'axis_params.fcmc')
+__axis_params__ = path.join(__dir__, 'Axis','Parameters.fcmc')
 
 class AxisPanel:
 
@@ -72,7 +72,7 @@ class AxisPanel:
                     col += col_spans[w]
         else:
             # no axis configured
-            defaultLabel = QtWidgets.QLabel('No axis configured in fcmcua.ini')
+            defaultLabel = QtWidgets.QLabel('No axis configured in .ini')
             layout.addWidget(defaultLabel)
 
         #load previous settings from file params.fcmc
@@ -99,13 +99,13 @@ class _AxisSetup:
     def GetResources(self):
         # icon and command information
         MenuText = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_AxisSetup',
+            'Motion_Control_AxisSetup',
             'Axis settings dialog')
         ToolTip = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_AxisSetup',
+            'Motion_Control_AxisSetup',
             'Link OPC UA nodes (non-boolean) to FreeCAD objects')
         return {
-            'Pixmap': path.join(ICONPATH, "fcmcua_axes.svg"),
+            'Pixmap': path.join(ICONPATH, "Axes.svg"),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
@@ -114,4 +114,4 @@ class _AxisSetup:
         return not activeDocument is None
 
 
-Gui.addCommand('FCMC_AxisSetup', _AxisSetup())
+Gui.addCommand('Motion_Control_AxisSetup', _AxisSetup())

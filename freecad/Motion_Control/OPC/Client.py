@@ -6,8 +6,8 @@ from datetime import datetime
 from FreeCAD import Gui
 from time import sleep
 
-from .fcmcua_actuator_logic import ActuatorLogic
-from .opc_cad_updater import CadUpdater
+from ..Actuator.Logic import ActuatorLogic
+from .Updater import CadUpdater
 
 
 class OpcClient():
@@ -80,7 +80,7 @@ class OpcClient():
             # only connect if the active document contains a valid Assembly4 model
             if self.upd.checkModel() is None:
                 # error message
-                print("[Fcmcua] No Assembly4 container found in active document")
+                print("[Motion Control] No Assembly4 container found in active document")
 
                 # abort communication loop
                 self.running = False
@@ -129,9 +129,9 @@ class OpcClient():
 
             # wait for poll_rate (ms) --> calculate seconds by 1/1000.0
             # dont sleep longer than the poll rate, if the opc interaction takes a significant amount of time
-            sleep = (self.poll_rate/1000) - (t_end - before).total_seconds()
-            if sleep > 0: 
-                sleep(sleep)
+            duration = (self.poll_rate/1000) - (t_end - before).total_seconds()
+            if duration > 0: 
+                sleep(duration)
 
             # time after this cycle (including time slept)
             after = datetime.now()

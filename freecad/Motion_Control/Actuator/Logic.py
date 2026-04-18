@@ -85,7 +85,7 @@ class ActuatorLogic:
             rot_y = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.y, RND_PARAM)
             rot_z = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.z, RND_PARAM)
         except Exception as e:
-            print("[Fcmcua] Error while getting values from the freecad document", e)
+            print("[Motion Control] Error while getting values from the freecad document", e)
 
         return {'x':old_X, 'y':old_Y, 'z':old_Z, 'angle':old_angle,
                 'rot_x':rot_x, 'rot_y':rot_y, 'rot_z':rot_z}

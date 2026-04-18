@@ -5,15 +5,15 @@ from FreeCAD import Gui
 from os import path
 
 
-class Fcmcua(Gui.Workbench):
+class Motion_Control(Gui.Workbench):
     """
     class which gets initiated at startup of the gui
     """
 
     from freecad.Motion_Control import ICONPATH
-    MenuText = "FCMC UA"
-    ToolTip = "FreeCAD Motion Control Conector OPC UA"
-    Icon = path.join(ICONPATH, "fcmcua_wb.svg")
+    MenuText = "Motion Control"
+    ToolTip = "OPC UA Connector"
+    Icon = path.join(ICONPATH,'Addon.svg')
 
     def GetClassName(self):
         return "Gui::PythonWorkbench"
@@ -23,11 +23,11 @@ class Fcmcua(Gui.Workbench):
         This function is called at the first activation of the workbench.
         here is the place to import all the commands
         """
-        import freecad.Motion_Control.fcmcua_cmd
-        import freecad.Motion_Control.fcmcua_axes_cmd
-        import freecad.Motion_Control.fcmcua_actuators_cmd
+        import freecad.Motion_Control.Commands.Init
+        import freecad.Motion_Control.Commands.Axes
+        import freecad.Motion_Control.Commands.Actuators
         
-        self.toolbox = ['FCMC_LinkToOpcUa', 'FCMC_AxisSetup', 'FCMC_ActuatorSetup']
+        self.toolbox = ['Motion_Control_LinkToOpcUa', 'Motion_Control_AxisSetup', 'Motion_Control_ActuatorSetup']
 
         self.appendToolbar("Tools", self.toolbox)
         self.appendMenu("Tools", self.toolbox)
@@ -45,4 +45,4 @@ class Fcmcua(Gui.Workbench):
         pass
 
 
-Gui.addWorkbench(Fcmcua())
+Gui.addWorkbench(Motion_Control())

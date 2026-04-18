@@ -7,8 +7,8 @@ from os import path
 
 from freecad.Motion_Control import ICONPATH, ACTUATORS
 
-from .actuator_widgets import ActuatorWidgets
-from .fcmcua_settings import Settings
+from ..Actuator.Widgets import ActuatorWidgets
+from ..Settings import Settings
 
 
 class ActuatorPanel:
@@ -81,7 +81,7 @@ class ActuatorPanel:
 
         else:
             # no actuator configured
-            defaultLabel = QtWidgets.QLabel('No actuator configured in fcmcua.ini')
+            defaultLabel = QtWidgets.QLabel('No actuator configured in .ini')
             main_layout.addWidget(defaultLabel)
 
 
@@ -105,13 +105,13 @@ class _ActuatorSetup:
     def GetResources(self):
         # icon and command information
         MenuText = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_ActuatorSetup',
+            'Motion_Control_ActuatorSetup',
             'Actuator settings dialog')
         ToolTip = QtCore.QT_TRANSLATE_NOOP(
-            'FCMC_ActuatorSetup',
+            'Motion_Control_ActuatorSetup',
             'Link OPC UA nodes (boolean) to FreeCAD objects')
         return {
-            'Pixmap': path.join(ICONPATH, "fcmcua_actuator.svg"),
+            'Pixmap': path.join(ICONPATH, "Actuator.svg"),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
@@ -120,4 +120,4 @@ class _ActuatorSetup:
         return not activeDocument is None
 
 
-Gui.addCommand('FCMC_ActuatorSetup', _ActuatorSetup())
+Gui.addCommand('Motion_Control_ActuatorSetup', _ActuatorSetup())
