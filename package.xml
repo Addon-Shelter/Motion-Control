@@ -15,7 +15,10 @@
       <classname>Fcmcua</classname>
       <subdirectory>./</subdirectory>
       <!-- Python package dependencies-->
-      <depend>asyncua</depend>
+      <depend
+        version_gte = '1.1.8'
+        type = 'python'
+      >asyncua</depend>
     </workbench>
   </content>
 

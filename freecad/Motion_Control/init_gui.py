@@ -23,7 +23,10 @@ class Fcmcua(Gui.Workbench):
         This function is called at the first activation of the workbench.
         here is the place to import all the commands
         """
-        import fcmcua_cmd, fcmcua_axes_cmd, fcmcua_actuators_cmd
+        import freecad.Motion_Control.fcmcua_cmd
+        import freecad.Motion_Control.fcmcua_axes_cmd
+        import freecad.Motion_Control.fcmcua_actuators_cmd
+        
         self.toolbox = ['FCMC_LinkToOpcUa', 'FCMC_AxisSetup', 'FCMC_ActuatorSetup']
 
         self.appendToolbar("Tools", self.toolbox)
