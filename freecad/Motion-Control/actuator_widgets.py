@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileNotice: Part of the Motion Control addon.
+
 from PySide2 import QtWidgets
 
 __pos_max__ = 10000

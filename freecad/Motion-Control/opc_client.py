@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileNotice: Part of the Motion Control addon.
+
 from asyncua.sync import Client
 from opc_cad_updater import CadUpdater
 import FreeCADGui as Gui
