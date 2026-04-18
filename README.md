@@ -12,26 +12,14 @@ Link a motion controller to a FreeCAD assembly using OPC UA. This workbench can 
 
 ![Demo](https://user-images.githubusercontent.com/104628764/211853683-031cf2f3-6bcc-41fa-9d38-f4cbf12fcaa7.gif)  
 
-## Installation  
-
-This workbench was tested on FreeCAD v0.20.1 and with Python 3.10.5.
-
-### Addon Manager  
-
-Motion Control is available from the integrated [Addon Manager](https://wiki.freecadweb.org/Std_AddonMgr).
-* Go to <code>Tools > Addon manager</code>
-* Find <code>Motion Control</code> in the list
-* Install the workbench
-* Restart FreeCAD
-
 ## Usage  
 
 **Some basics:** Motion Control works by updating the AttachmentOffsets of the Local Coordinate Systems (LCS) with which the individual parts are attached to one another. Take a look at the command that does this:  
 
 ```python
-  import FreeCAD as App
+import FreeCAD as App
 
-  App.getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = App.Placement(App.Vector(x,y,z),App.Rotation(App.Vector(v_x, v_y, v_z), angle))
+App.getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = App.Placement(App.Vector(x,y,z),App.Rotation(App.Vector(v_x, v_y, v_z), angle))
 ```
 As you can see, the FreeCAD part that contains the LCS is given a Placement object. The LCS whose AttachmentOffset is updated is identified by the name of the Part's document and the Label you have given the LCS.  
 
@@ -95,6 +83,4 @@ If you find a bug or have a feature you think would be cool to have in this work
 ## References
 
 * [Assembly4](https://github.com/Zolko-123/FreeCAD_Assembly4) Workbench by [Zolko-123](https://github.com/Zolko-123)
-* Tutorial on [FreeCAD Workbenches](https://github.com/felipe-m/tutorial_freecad_wb) by [Felipe Machado](https://github.com/felipe-m)
-* Workbench [Starterkit](https://github.com/looooo/Workbench-Starterkit) by [lorenz](https://github.com/looooo)
 * Free OPC UA [Library](https://github.com/FreeOpcUa/opcua-asyncio)
