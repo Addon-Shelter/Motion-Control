@@ -12,7 +12,7 @@ class Fcmcua(Gui.Workbench):
     class which gets initiated at startup of the gui
     """
 
-    from freecad.fcmcua import ICONPATH
+    from freecad.Motion_Control import ICONPATH
     MenuText = "FCMC UA"
     ToolTip = "FreeCAD Motion Control Conector OPC UA"
     Icon = os.path.join(ICONPATH, "fcmcua_wb.svg")

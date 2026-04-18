@@ -8,7 +8,7 @@ import os
 
 from axis_widgets import AxisWidgets
 from fcmcua_settings import Settings
-from freecad.fcmcua import ICONPATH, AXES
+from freecad.Motion_Control import ICONPATH, AXES
 
 __dir__ = os.path.dirname(__file__)
 __axis_params__ = os.path.join(__dir__, 'axis_params.fcmc')

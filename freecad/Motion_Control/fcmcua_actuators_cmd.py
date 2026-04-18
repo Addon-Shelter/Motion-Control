@@ -8,7 +8,7 @@ import os
 
 from actuator_widgets import ActuatorWidgets
 from fcmcua_settings import Settings
-from freecad.fcmcua import ICONPATH, ACTUATORS
+from freecad.Motion_Control import ICONPATH, ACTUATORS
 
 
 class ActuatorPanel:

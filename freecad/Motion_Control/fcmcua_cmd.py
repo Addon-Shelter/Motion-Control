@@ -9,7 +9,7 @@ import os
 from opc_client import OpcClient
 from axis_widgets import AxisWidgets
 from actuator_widgets import ActuatorWidgets
-from freecad.fcmcua import ICONPATH, AXES, ACTUATORS
+from freecad.Motion_Control import ICONPATH, AXES, ACTUATORS
 from fcmcua_settings import Settings
 
 
