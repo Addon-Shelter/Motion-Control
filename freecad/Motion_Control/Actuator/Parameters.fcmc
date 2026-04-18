@@ -1,1 +1,17 @@
-{"0": {"type": "1 bidirectional (open and close)", "blockOption": "False", "nodeIdOpen": "ns=2;i=2", "nodeIdBlock": "ns=2;i=5", "nodeIdClose": "ns=2;i=2", "docName": "Document", "objLabel": "LCS", "vector": "x", "openPos": "0.0", "blockPos": "0.0", "closePos": "0.0", "openTime": "1000.0", "closeTime": "1000.0"}}
+{
+    "0": {
+        "type": "1 bidirectional (open and close)",
+        "blockOption": "False",
+        "nodeIdOpen": "ns=2;i=2",
+        "nodeIdBlock": "ns=2;i=5",
+        "nodeIdClose": "ns=2;i=2",
+        "docName": "Document",
+        "objLabel": "LCS",
+        "vector": "x",
+        "openPos": "0.0",
+        "blockPos": "0.0",
+        "closePos": "0.0",
+        "openTime": "1000.0",
+        "closeTime": "1000.0"
+    }
+}
