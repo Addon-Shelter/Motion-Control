@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-import FreeCAD as App
-import math
+from FreeCAD import getDocument
+from math import pi
+
 
 # round values received from FreeCAD to 3 decimals
 RND_PARAM = 3
@@ -73,16 +74,16 @@ class ActuatorLogic:
         '''
         try:    
             # get current placement from the document
-            old_X = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.x, RND_PARAM)
-            old_Y = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.y, RND_PARAM)
-            old_Z = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.z, RND_PARAM)
+            old_X = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.x, RND_PARAM)
+            old_Y = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.y, RND_PARAM)
+            old_Z = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Base.z, RND_PARAM)
 
             # get current rotation from the document
-            rad_angle = App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Angle
-            old_angle = round(rad_angle * 180 / math.pi, RND_PARAM)
-            rot_x = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.x, RND_PARAM)
-            rot_y = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.y, RND_PARAM)
-            rot_z = round(App.getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.z, RND_PARAM)
+            rad_angle = getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Angle
+            old_angle = round(rad_angle * 180 / pi, RND_PARAM)
+            rot_x = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.x, RND_PARAM)
+            rot_y = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.y, RND_PARAM)
+            rot_z = round(getDocument(self.doc).getObjectsByLabel(self.fc_obj)[0].AttachmentOffset.Rotation.Axis.z, RND_PARAM)
         except Exception as e:
             print("[Fcmcua] Error while getting values from the freecad document", e)
 

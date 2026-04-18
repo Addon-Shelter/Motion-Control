@@ -2,12 +2,13 @@
 # SPDX-FileNotice: Part of the Motion Control addon.
 
 from asyncua.sync import Client
-from opc_cad_updater import CadUpdater
-import FreeCADGui as Gui
 from datetime import datetime
-from fcmcua_actuator_logic import ActuatorLogic
+from FreeCAD import Gui
+from time import sleep
 
-import time
+from .fcmcua_actuator_logic import ActuatorLogic
+from .opc_cad_updater import CadUpdater
+
 
 class OpcClient():
     def __init__(self, axis_list, actu_list ):
@@ -130,7 +131,7 @@ class OpcClient():
             # dont sleep longer than the poll rate, if the opc interaction takes a significant amount of time
             sleep = (self.poll_rate/1000) - (t_end - before).total_seconds()
             if sleep > 0: 
-                time.sleep(sleep)
+                sleep(sleep)
 
             # time after this cycle (including time slept)
             after = datetime.now()

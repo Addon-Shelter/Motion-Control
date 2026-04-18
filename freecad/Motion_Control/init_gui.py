@@ -1,10 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-import os
-import FreeCADGui as Gui
-import FreeCAD as App
-
+from FreeCAD import Gui
+from os import path
 
 
 class Fcmcua(Gui.Workbench):
@@ -15,7 +13,7 @@ class Fcmcua(Gui.Workbench):
     from freecad.Motion_Control import ICONPATH
     MenuText = "FCMC UA"
     ToolTip = "FreeCAD Motion Control Conector OPC UA"
-    Icon = os.path.join(ICONPATH, "fcmcua_wb.svg")
+    Icon = path.join(ICONPATH, "fcmcua_wb.svg")
 
     def GetClassName(self):
         return "Gui::PythonWorkbench"

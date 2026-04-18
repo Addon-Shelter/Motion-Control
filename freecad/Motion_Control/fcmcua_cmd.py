@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-from PySide6 import QtCore, QtWidgets
-import FreeCAD
-import FreeCADGui
-import os
+from FreeCAD import activeDocument , Gui
+from PySide6 import QtWidgets , QtCore
+from os import path
 
-from opc_client import OpcClient
-from axis_widgets import AxisWidgets
-from actuator_widgets import ActuatorWidgets
 from freecad.Motion_Control import ICONPATH, AXES, ACTUATORS
-from fcmcua_settings import Settings
+
+from .actuator_widgets import ActuatorWidgets
+from .fcmcua_settings import Settings
+from .axis_widgets import AxisWidgets
+from .opc_client import OpcClient
 
 
 class FcmcuaPanel:
@@ -128,12 +128,12 @@ class FcmcuaPanel:
     def accept(self):
         self.settings.save_connection_settings(self.addrLEdit, self.pollSpin)
         self.opc.stop()
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
 
     
     def reject(self):
         self.opc.stop()
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
 
 
 # GUI command that links the Python script
@@ -142,7 +142,7 @@ class _LinkToOpcUa:
         #create and show the panel
         baseWidget = QtWidgets.QWidget()
         panel = FcmcuaPanel(baseWidget, AXES, ACTUATORS)
-        FreeCADGui.Control.showDialog(panel)
+        Gui.Control.showDialog(panel)
 
     def GetResources(self):
         # icon and command information
@@ -153,13 +153,13 @@ class _LinkToOpcUa:
             'FCMC_LinkToOpcUa',
             'Set the server address and connect to the OPC UA Server')
         return {
-            'Pixmap': os.path.join(ICONPATH, "fcmcua_wb.svg"),
+            'Pixmap': path.join(ICONPATH, "fcmcua_wb.svg"),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
     def IsActive(self):
         # The command will be active if there is an active document
-        return not FreeCAD.ActiveDocument is None
+        return not activeDocument is None
 
 
-FreeCADGui.addCommand('FCMC_LinkToOpcUa', _LinkToOpcUa())
+Gui.addCommand('FCMC_LinkToOpcUa', _LinkToOpcUa())

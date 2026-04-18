@@ -1,17 +1,17 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
+from FreeCAD import activeDocument , Gui
 from PySide6 import QtCore, QtWidgets
-import FreeCAD
-import FreeCADGui
-import os
+from os import path
 
-from axis_widgets import AxisWidgets
-from fcmcua_settings import Settings
 from freecad.Motion_Control import ICONPATH, AXES
 
-__dir__ = os.path.dirname(__file__)
-__axis_params__ = os.path.join(__dir__, 'axis_params.fcmc')
+from .fcmcua_settings import Settings
+from .axis_widgets import AxisWidgets
+
+__dir__ = path.dirname(__file__)
+__axis_params__ = path.join(__dir__, 'axis_params.fcmc')
 
 class AxisPanel:
 
@@ -82,11 +82,11 @@ class AxisPanel:
     def accept(self):
         if self.axes > 0:
             self.settings.save_axis_settings(self.axis_list)
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
 
     
     def reject(self):
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
     
 
 class _AxisSetup:
@@ -94,7 +94,7 @@ class _AxisSetup:
         #create and show the panel
         baseWidget = QtWidgets.QWidget()
         panel = AxisPanel(baseWidget, AXES)
-        FreeCADGui.Control.showDialog(panel)
+        Gui.Control.showDialog(panel)
 
     def GetResources(self):
         # icon and command information
@@ -105,13 +105,13 @@ class _AxisSetup:
             'FCMC_AxisSetup',
             'Link OPC UA nodes (non-boolean) to FreeCAD objects')
         return {
-            'Pixmap': os.path.join(ICONPATH, "fcmcua_axes.svg"),
+            'Pixmap': path.join(ICONPATH, "fcmcua_axes.svg"),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
     def IsActive(self):
         # The command will be active if there is an active document
-        return not FreeCAD.ActiveDocument is None
+        return not activeDocument is None
 
 
-FreeCADGui.addCommand('FCMC_AxisSetup', _AxisSetup())
+Gui.addCommand('FCMC_AxisSetup', _AxisSetup())

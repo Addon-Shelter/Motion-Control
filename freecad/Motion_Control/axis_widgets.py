@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-from PySide6 import QtCore, QtWidgets
+from PySide6 import  QtWidgets
+
 
 __min_multi__ = 0.0
 __max_multi__ = 1000.0
 __default_multi__ = 1.0
+
 
 class AxisWidgets(QtWidgets.QWidget):
     '''

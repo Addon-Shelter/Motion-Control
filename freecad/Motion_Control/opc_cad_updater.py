@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-import FreeCAD as App
-import math
+from FreeCAD import activeDocument , getDocument , Placement , Rotation , Vector
+from math import pi
 
 # uncomment to calculate and display compute times
 # from datetime import datetime
@@ -66,16 +66,16 @@ class CadUpdater():
     def _getFcValues(self, doc, obj):
             try:    
                 # get actual placement from the document
-                old_X = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.x, _RND_PARAM)
-                old_Y = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.y, _RND_PARAM)
-                old_Z = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.z, _RND_PARAM)
+                old_X = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.x, _RND_PARAM)
+                old_Y = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.y, _RND_PARAM)
+                old_Z = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Base.z, _RND_PARAM)
 
                 # get actual rotation from the document
-                rad_angle = App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Angle
-                old_angle = round(rad_angle * 180 / math.pi, _RND_PARAM)
-                rot_x = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.x, _RND_PARAM)
-                rot_y = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.y, _RND_PARAM)
-                rot_z = round(App.getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.z, _RND_PARAM)
+                rad_angle = getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Angle
+                old_angle = round(rad_angle * 180 / pi, _RND_PARAM)
+                rot_x = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.x, _RND_PARAM)
+                rot_y = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.y, _RND_PARAM)
+                rot_z = round(getDocument(doc).getObjectsByLabel(obj)[0].AttachmentOffset.Rotation.Axis.z, _RND_PARAM)
             except Exception as e:
                 print("[Fcmcua] Error while getting values from the freecad document", e)
 
@@ -128,7 +128,7 @@ class CadUpdater():
                 angle = (val if obj.sign.currentText() == '+' else (-val)) if obj.vector.currentText() == 'deg' else prev['old_angle']
 
                 # update the axis values in the freecad document
-                App.getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = App.Placement(App.Vector(x,y,z),App.Rotation(App.Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), angle))
+                getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = Placement(Vector(x,y,z),Rotation(Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), angle))
             else:
                 # speed axis:
                 # Assign vector components with previous values except for 
@@ -142,7 +142,7 @@ class CadUpdater():
                 angle = (prev['old_angle'] + (val if obj.sign.currentText() == '+' else (-val))) if obj.vector.currentText() == 'deg' else prev['old_angle']
 
                 # update the axis values in the freecad document
-                App.getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = App.Placement(App.Vector(x,y,z),App.Rotation(App.Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), angle))
+                getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = Placement(Vector(x,y,z),Rotation(Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), angle))
 
         except Exception as e:
             print("[Fcmcua] Error while setting values in the freecad document", e)
@@ -167,7 +167,7 @@ class CadUpdater():
             z = val if obj.vectorCombo.currentText() == 'z' else prev['old_Z']
 
             #update the actuator values in the freecad document
-            App.getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = App.Placement(App.Vector(x,y,z),App.Rotation(App.Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), prev['old_angle']))
+            getDocument(doc).getObjectsByLabel(fc_obj)[0].AttachmentOffset = Placement(Vector(x,y,z),Rotation(Vector(prev['rot_x'], prev['rot_y'], prev['rot_z']), prev['old_angle']))
 
         except Exception as e:
             print("[Fcmcua] Error while setting values in the freecad document", e)
@@ -194,8 +194,11 @@ class CadUpdater():
         #
 
         retval = None
-        if App.ActiveDocument:
-            model = App.ActiveDocument.getObject('Model')
+
+        document = activeDocument()
+
+        if document:
+            model = document.getObject('Model')
             # the current (as per v0.12) assembly container
             if model and model.TypeId=='App::Part' \
                     and model.Type == 'Assembly'   \
@@ -203,7 +206,7 @@ class CadUpdater():
                 retval = model
             else:
                 # former Assembly compatibility check:
-                assy = App.ActiveDocument.getObject('Assembly')
+                assy = document.getObject('Assembly')
                 if assy and assy.TypeId=='App::Part'  \
                         and assy.Type == 'Assembly'   \
                         and assy.getParentGeoFeatureGroup() is None:

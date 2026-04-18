@@ -1,14 +1,14 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-from PySide6 import QtCore, QtWidgets
-import FreeCAD
-import FreeCADGui
-import os
+from FreeCAD import activeDocument , Gui
+from PySide6 import QtWidgets , QtCore
+from os import path
 
-from actuator_widgets import ActuatorWidgets
-from fcmcua_settings import Settings
 from freecad.Motion_Control import ICONPATH, ACTUATORS
+
+from .actuator_widgets import ActuatorWidgets
+from .fcmcua_settings import Settings
 
 
 class ActuatorPanel:
@@ -88,11 +88,11 @@ class ActuatorPanel:
     def accept(self):
         if self.actuators > 0:
             self.settings.save_actuator_settings(self.actu_list)
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
 
     
     def reject(self):
-        FreeCADGui.Control.closeDialog() #close the dialog
+        Gui.Control.closeDialog() #close the dialog
 
     
 class _ActuatorSetup:
@@ -100,7 +100,7 @@ class _ActuatorSetup:
         #create and show the panel
         baseWidget = QtWidgets.QWidget()
         panel = ActuatorPanel(baseWidget, ACTUATORS)
-        FreeCADGui.Control.showDialog(panel)
+        Gui.Control.showDialog(panel)
 
     def GetResources(self):
         # icon and command information
@@ -111,13 +111,13 @@ class _ActuatorSetup:
             'FCMC_ActuatorSetup',
             'Link OPC UA nodes (boolean) to FreeCAD objects')
         return {
-            'Pixmap': os.path.join(ICONPATH, "fcmcua_actuator.svg"),
+            'Pixmap': path.join(ICONPATH, "fcmcua_actuator.svg"),
             'MenuText': MenuText,
             'ToolTip': ToolTip}
 
     def IsActive(self):
         # The command will be active if there is an active document
-        return not FreeCAD.ActiveDocument is None
+        return not activeDocument is None
 
 
-FreeCADGui.addCommand('FCMC_ActuatorSetup', _ActuatorSetup())
+Gui.addCommand('FCMC_ActuatorSetup', _ActuatorSetup())

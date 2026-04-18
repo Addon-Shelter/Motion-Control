@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileNotice: Part of the Motion Control addon.
 
-import os
-import json
+from json import dumps , loads
+from os import path
 
-__dir__ = os.path.dirname(__file__)
-__axis_params__ = os.path.join(__dir__, 'axis_params.fcmc')
-__actuator_params__ = os.path.join(__dir__, 'actuator_params.fcmc')
-__connection_params__ = os.path.join(__dir__, 'connection_params.fcmc')
+__dir__ = path.dirname(__file__)
+__axis_params__ = path.join(__dir__, 'axis_params.fcmc')
+__actuator_params__ = path.join(__dir__, 'actuator_params.fcmc')
+__connection_params__ = path.join(__dir__, 'connection_params.fcmc')
 
 class Settings:
 
@@ -21,7 +21,7 @@ class Settings:
 
         try:
             with open(__connection_params__, 'w') as f:
-                f.write(json.dumps(params))
+                f.write(dumps(params))
         except Exception as e:
             print("[Fcmcua] Error while saving to file:", e)
     
@@ -37,7 +37,7 @@ class Settings:
         try:
             #poll-rate and url
             with open(__connection_params__, 'r') as f:
-                params = json.loads(f.read())
+                params = loads(f.read())
         except Exception as e:
             print("[Fcmcua] Error while loading from file:", e)
             
@@ -66,7 +66,7 @@ class Settings:
             params[str(e)] = entry
         try:
             with open(__axis_params__, 'w') as f:
-                f.write(json.dumps(params))
+                f.write(dumps(params))
         except Exception as e:
             print("[Fcmcua] Error while saving to file:", e)
 
@@ -77,7 +77,7 @@ class Settings:
         '''
         try:
             with open(__axis_params__, 'r') as f:
-                params = json.loads(f.read())
+                params = loads(f.read())
         except Exception as e:
             print("[Fcmcua] Error while loading from file:", e)
 
@@ -123,7 +123,7 @@ class Settings:
         
         try:
             with open(__actuator_params__, 'w') as f:
-                f.write(json.dumps(params))
+                f.write(dumps(params))
         except Exception as e:
             print("[Fcmcua] Error while saving to file:", e)
 
@@ -134,7 +134,7 @@ class Settings:
             '''
             try:
                 with open(__actuator_params__, 'r') as f:
-                    params = json.loads(f.read())
+                    params = loads(f.read())
             except Exception as e:
                 print("[Fcmcua] Error while loading from file:", e)
 
